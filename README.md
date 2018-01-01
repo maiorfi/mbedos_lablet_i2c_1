@@ -1,1 +1,3 @@
-# mbedos_lablet_i2c_1
+# mbedOS Lablet I2C
+
+Sample per la comunicazione via I2C con sensore di temperatura "intelligente" Microchip MCP9801
