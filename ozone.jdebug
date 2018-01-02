@@ -9,7 +9,7 @@
 **********************************************************************
 */                                                                    
 void OnProjectLoad (void) {
-  Project.SetDevice ("STM32F103RB");
+  Project.SetDevice ("STM32L476RG");
   Project.SetHostIF ("USB", "");
   Project.SetTargetIF ("SWD");
   Project.SetTIFSpeed ("10 MHz");
@@ -17,12 +17,12 @@ void OnProjectLoad (void) {
   //
   // Dialog-generated settings
   //
-  Project.AddSvdFile ("Cortex-M4F.svd");
-  Project.AddSvdFile ("D:/SEGGER/Ozone V2.54a/Config/Peripherals/STM32F407IG.svd");
+  Project.AddSvdFile ("Cortex-M3.svd");
+  Project.AddSvdFile ("$(InstallDir)/Config/Peripherals/ARMv7M.svd");
   //
   // User settings
   //
-  File.Open ("D:/Progetti/Lab/mBed/lablet_i2c_1/BUILD/DISCO_F407VG/GCC_ARM/lablet_i2c_1.elf");
+  File.Open ("D:/Progetti/Lab/mBed/lablet_i2c_1/BUILD/NUCLEO_F103RB/GCC_ARM/lablet_i2c_1.elf");
 }
 
 /*********************************************************************

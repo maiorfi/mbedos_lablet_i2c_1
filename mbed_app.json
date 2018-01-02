@@ -1,10 +1,2 @@
 {
-  "config": {
-    "thread_stack_size": {
-      "value": 1024
-    },
-    "main_stack_size": {
-      "value": 1024
-    }
-  }
 }
