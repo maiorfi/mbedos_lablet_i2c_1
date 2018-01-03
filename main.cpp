@@ -11,6 +11,7 @@ static Serial s_debug_serial_port(SERIAL_TX, SERIAL_RX, 115200);
 
 bool set_12bit_resolution()
 {
+    // write value 0x60 to the configuration register (address 0x01)
     const char buf[] = {0x01, 0x60};
     bool i2c_operation_failed=i2c.write(I2C_ADDR, buf, sizeof(buf));
     return !i2c_operation_failed;
@@ -23,17 +24,20 @@ bool get_temperature(float& ref_temperature)
 
     char buf[] = {0x00, 0x00};
 
+    // write ambient temperature register address 0x00 (byte [0] of buf)...
     i2c_operation_failed=i2c.write(I2C_ADDR, buf, 1);
     if(i2c_operation_failed) return false;
 
+    // ...then read the two bytes (MSB and LSB) containing the temperature
     i2c_operation_failed=i2c.read(I2C_ADDR | 0x01, buf, sizeof(buf));
     if(i2c_operation_failed) return false;
     
+    // right shift the most significant byte to obtain the sign
     sign = buf[0]>>7;
 
     int t;
     
-    if (sign == 1)
+    if (sign == 1)  // in case of negative sign calculate 2's complement
     {
         buf[0] = ~buf[0];
         buf[1] = ~buf[1];
@@ -47,7 +51,7 @@ bool get_temperature(float& ref_temperature)
         t = ((t<<4) | (buf[1]>>4));
     }
     
-    ref_temperature = t/16.0;
+    ref_temperature = t/16.0;   // this reference will be available in main()
 
     return true;
 }
